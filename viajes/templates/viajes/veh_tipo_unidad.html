@@ -1,0 +1,113 @@
+
+{% extends 'viajes/components/base.html' %}
+{% load static%}
+
+		{% block styles %}
+		<!-- Internal Data table css -->
+		<link href="{%static '' %}assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+		<link href="{%static '' %}assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+		<link href="{%static '' %}assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
+	    <link href="{%static '' %}assets/plugins/datatable/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+		
+		{% endblock styles %}
+
+					{% block body %}
+					<!-- breadcrumb -->
+					<div class="breadcrumb-header justify-content-between">
+						<div class="my-auto">
+							<div class="d-flex">
+								<h2>TIPOS DE UNIDAD</h2>
+							</div>
+						</div>
+						
+					</div>
+					<!-- breadcrumb -->
+
+					<!-- row -->
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="card mg-b-20">
+								<div class="card-header pb-0">
+									<div class="d-flex justify-content-between">
+										<h4 class="card-title mg-b-0">Resultados</h4>
+										<i class="mdi mdi-dots-horizontal text-gray"></i>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table key-buttons text-md-nowrap" id="example">
+											<thead>
+												<tr>
+													<th class="border-bottom-0">codigo</th>
+													<th class="border-bottom-0">Descripción</th>
+												</tr>
+											</thead>
+											<tbody>
+												{%for catalogo in listado %}
+												<tr>
+													<td>{{catalogo.codigo}}</td>
+													<td>{{catalogo.descripcion}}</td>
+													<td><a href="/viajes/catalogo/editar/{{catalogo.id}}" class="btn btn-success">Editar</a></td>
+													<td><a href="/viajes/catalogo/desactivar/{{catalogo.id}}" class="btn btn-danger">Desactivar</a></td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+							<div class="card  box-shadow-0">
+								<div class="card-header">
+									<h4 class="card-title mb-1">DATOS</h4>
+								</div>
+								<div class="card-body pt-0">
+									<form class="form-horizontal"  method="post" >
+										{% csrf_token %}
+										<div class="form-group">
+											<input type="text" class="form-control" id="inputName" name="codigo" placeholder="Codigo"
+											value="{{cateditar.codigo}}">
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" id="inputName" name="descripcion" placeholder="Descripción"
+											value="{{cateditar.descripcion}}">
+										</div>
+										<div class="form-group mb-0 mt-3 justify-content-end">
+											<div>
+												<button type="submit" class="btn btn-primary">GUARDAR</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endblock body %}
+					
+		{% block scripts %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+		<script src="{%static '' %}assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+		<!-- Internal Data tables -->
+		<script src="{%static '' %}assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/responsive.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/jquery.dataTables.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.bootstrap4.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.bootstrap4.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/jszip.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/pdfmake.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/vfs_fonts.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.html5.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.print.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.colVis.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.fixedHeader.min.js"></script>
+		{% endblock scripts %}

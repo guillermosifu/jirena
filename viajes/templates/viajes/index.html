@@ -1,0 +1,71 @@
+
+{% extends 'viajes/components/base.html' %}
+{% load static%}
+
+		{% block styles %}
+		<!-- Internal Data table css -->
+		<link href="{%static '' %}assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+		<link href="{%static '' %}assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+		<link href="{%static '' %}assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
+	    <link href="{%static '' %}assets/plugins/datatable/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+		
+		{% endblock styles %}
+
+					{% block body %}
+					<!-- breadcrumb -->
+					<div class="breadcrumb-header justify-content-between">
+						<div class="my-auto">
+							<div class="d-flex">
+								<h2>SISTEMA DE VIAJES JIRENA</h2>
+							</div>
+						</div>
+						
+					</div>
+					<!-- breadcrumb -->
+
+					<!-- row -->
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="card mg-b-20">
+								<div class="card-header pb-0">
+									<div class="d-flex justify-content-between">
+										<h4 class="card-title mg-b-0">Resultados</h4>
+										<!--<button onclick="exportarExcel()" class="btn btn-success">Exportar Excel</button>-->
+										<i class="mdi mdi-dots-horizontal text-gray"></i>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endblock body %}
+					
+		{% block scripts %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+		<script src="{%static '' %}assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+		<!-- Internal Data tables -->
+		<script src="{%static '' %}assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/responsive.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/jquery.dataTables.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.bootstrap4.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.bootstrap4.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/jszip.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/pdfmake.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/vfs_fonts.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.html5.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.print.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.colVis.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.fixedHeader.min.js"></script>
+		{% endblock scripts %}

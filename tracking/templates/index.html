@@ -1,0 +1,329 @@
+
+{% extends 'components/base.html' %}
+{% load static%}
+
+		{% block styles %}
+		<!-- Internal Data table css -->
+		<link href="{%static '' %}assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+		<link href="{%static '' %}assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+		<link href="{%static '' %}assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
+	    <link href="{%static '' %}assets/plugins/datatable/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+		<link href="{%static '' %}assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+		
+		{% endblock styles %}
+
+					{% block body %}
+					<!-- breadcrumb -->
+					<div class="breadcrumb-header justify-content-between">
+						<div class="my-auto">
+							<div class="d-flex">
+								<h2>EMPRESA : METSO OUTOTEC PERÚ S.A.</h2>
+							</div>
+						</div>
+						
+					</div>
+					<!-- breadcrumb -->
+
+					<!-- row -->
+					<div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+						<div class="card">
+							<div class="card-body" >
+								<div class="main-content-label mg-b-5">
+									FILTROS GENERALES <a href="#" onclick="toggleCard('filtro1')"><i class="header-icon fe fe-align-left"></i></a>
+								</div>
+								<div id="filtro1">
+								<p class="mg-b-20">Seleccione las opciones por las que desea filtrar</p>
+								<form action="" method="POST">
+								{% csrf_token %}
+								<div class="row row-sm">
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Nro Manifiesto</span>
+											</div><input aria-describedby="basic-addon1" aria-label="" name="manifiesto" class="form-control" placeholder="" type="text">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Cliente</span>
+											</div>
+											<select class="form-control select2-no-search" name="destinatario">
+												<option label="Seleccionar" value="0">
+												</option>
+												{% for destinatario in destinatarios %}
+													<option value="{{destinatario.id}}">
+														{{destinatario.nombre}}
+													</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Unidad Minera</span>
+											</div><input aria-describedby="basic-addon1" aria-label="" name="unidad_minera" class="form-control" placeholder="" type="text">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Estado</span>
+											</div>
+											<select class="form-control select2-no-search" name="estado">
+												<option label="Seleccionar" value="0">
+												</option>
+												{% for estado in estados %}
+													<option value="{{estado.id}}">
+														{{estado.descripcion}}
+													</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-4 mg-t-20 mg-lg-t-0">
+										<div>
+											<button type="submit" class="btn btn-primary">Filtrar</button>
+										</div>
+									</div><!-- col-4 -->
+								</div>
+								</form>
+								</div>
+							</div>
+						</div>
+						<!--
+						<div class="card">
+							<div class="card-body">
+								<div class="main-content-label mg-b-5">
+									FILTROS POR GUIAS <a href="#" onclick="toggleCard('filtro2')"><i class="header-icon fe fe-align-left"></i></a>
+								</div>
+								<div id="filtro2">
+									<form action="" method="POST">
+									{% csrf_token %}
+									<div class="row row-sm">
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Guia de Remitente</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_remitente" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Guia de Transportista</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_transportista" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 mg-t-20 mg-lg-t-0">
+										<div>
+											<button type="submit" class="btn btn-primary">Filtrar</button>
+										</div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-body">
+								<div class="main-content-label mg-b-5">
+									FILTROS POR FECHAS <a href="#" onclick="toggleCard('filtro3')"><i class="header-icon fe fe-align-left"></i></a>
+								</div>
+								<div id="filtro3">
+									<p class="mg-b-20">Rango de Guias</p>
+									<form action="" method="POST">
+									{% csrf_token %}
+									<div class="row row-sm">
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Fecha de Recepción</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_inicial" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Fecha de Inicio de Traslado</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_final" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 mg-t-20 mg-lg-t-0">
+										<div>
+											<button type="submit" class="btn btn-primary">Filtrar</button>
+										</div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						-->
+					</div>
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="card mg-b-20">
+								<div class="card-header pb-0">
+									<div class="d-flex justify-content-between">
+										<h4 class="card-title mg-b-0">Resultados</h4>
+										<!--<button onclick="exportarExcel()" class="btn btn-success">Exportar Excel</button>-->
+										<i class="mdi mdi-dots-horizontal text-gray"></i>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table key-buttons text-md-nowrap" id="example">
+											<thead>
+												<tr>
+													<th class="border-bottom-0">Nro Tramo</th>
+													<th class="border-bottom-0">Guia Remisión</th>
+													<th>Delivery</th>
+													<th>Sales Order</th>
+													<th>Orden de Compra</th>
+													<th>Cliente</th>
+													<th>Unidad Minera</th>
+													<th>Punto Origen</th>
+													<th>Punto Destino</th>
+													<th>Peso Total (TM)</th>
+													<th>Nro Bultos</th>
+													<th>Fecha Recepción</th>
+													<th>Fecha Inicio Traslado Real</th>
+													<th>Fecha entrega final programada</th>
+													<th>Fecha entrega final real</th>
+													<th>Estado de Entrega</th>
+													<th>Nro Guia Transporista</th>
+													<th>Imagenes</th>
+													<th>Nro Manifiesto</th>
+													<th>Comentarios</th>
+												</tr>
+											</thead>
+											<tbody>
+												{%for tramo in tramos %}
+												<tr>
+													<td>{{tramo.ntramo}}</td>
+													<td>
+														{% with tramo.guiasrem.first as guiarem %}
+															{% if guiarem %}
+																{{ guiarem.serie }} - {{ guiarem.numero }}</li>
+															{% else %}
+																
+															{% endif %}
+														{% endwith %}
+													</td>
+													<td>{{tramo.tracking.glosa1}}</td>
+													<td>{{tramo.tracking.glosa2}}</td>
+													<td>{{tramo.tracking.glosa3}}</td>
+													<td>{{tramo.tracking.destinatario.nombre}}</td>
+													<td>{{tramo.tracking.glosa4}}</td>
+													<td>{{tramo.rfdir1.direccion}}</td>
+													<td>{{tramo.rfdir2.direccion}}</td>
+													<td>{{tramo.tracking.glosa6}} TM</td>
+													<td>{{tramo.tracking.glosa5}}</td>
+													<td>{{tramo.fecha_creacion}}</td>
+													<td>{{tramo.fechasal_r}}</td>
+													<td>{{tramo.fechalleg}}</td>
+													<td>{{tramo.fechalleg_r}}</td>
+													<td>{{tramo.tracking.estado.descripcion}}</td>
+													<td>
+														{% with tramo.guiastran.first as guiatra %}
+														{% if guiarem %}
+															{{ guiatra.serie }} - {{ guiatra.numero }}</li>
+														{% else %}
+															
+														{% endif %}
+														{% endwith %}
+													</td>
+													<td><a href="/imagenes/{{tramo.id}}">CLICK AQUI</a></td>
+													<td>{{tramo.curso.curso}}</td>
+													<td>{{tramo.descrip}}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endblock body %}
+					
+		{% block scripts %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+		<script src="{%static '' %}assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+		<!-- Internal Data tables -->
+		<script src="{%static '' %}assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/responsive.dataTables.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/jquery.dataTables.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.bootstrap4.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.bootstrap4.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/jszip.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/pdfmake.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/vfs_fonts.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.html5.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.print.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/buttons.colVis.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
+		<script src="{%static '' %}assets/plugins/datatable/js/dataTables.fixedHeader.min.js"></script>
+
+		<!--Internal  Datatable js -->
+		<script src="{%static '' %}assets/js/table-data.js"></script>
+		<script>
+			var card1 = document.getElementById('filtro1');
+			//var card2 = document.getElementById('filtro2');
+			//var card3 = document.getElementById('filtro3');
+			card1.style.display = 'none';
+			//card2.style.display = 'none';
+			//card3.style.display = 'none';
+
+			$( function() {
+			  $( "#datepicker" ).datepicker();
+			} );
+		</script>
+		<script>
+			function toggleCard(cardId) {
+				var card = document.getElementById(cardId);
+				if (card.style.display === 'none' || card.style.display === '') {
+					card.style.display = 'block';
+				} else {
+					card.style.display = 'none';
+				}
+			}
+
+			function exportarExcel() {
+				// Obtener la tabla
+				var tabla = document.getElementById('example');
+
+				// Crear un objeto de trabajo de Excel
+				var libroExcel = new ExcelJS.Workbook();
+				var hojaExcel = libroExcel.addWorksheet('Hoja 1');
+
+				// Recorrer las filas y celdas de la tabla y agregar a Excel
+				var filasTabla = tabla.rows;
+				for (var i = 0; i < filasTabla.length; i++) {
+					var celdas = filasTabla[i].cells;
+					var filaExcel = hojaExcel.getRow(i + 1);
+
+					for (var j = 0; j < celdas.length; j++) {
+					filaExcel.getCell(j + 1).value = celdas[j].innerText;
+					}
+				}
+
+				// Descargar el archivo Excel
+				libroExcel.xlsx.writeBuffer().then(function (data) {
+					var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+					saveAs(blob, 'tabla_excel.xlsx');
+				});
+			}
+
+
+		</script>
+		{% endblock scripts %}

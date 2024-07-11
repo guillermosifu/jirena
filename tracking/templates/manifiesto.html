@@ -1,0 +1,253 @@
+
+{% extends 'components/base.html' %}
+{% load static%}
+
+		{% block styles %}
+		
+		{% endblock styles %}
+
+					{% block body %}
+					<!-- breadcrumb -->
+					<div class="breadcrumb-header justify-content-between">
+						<div class="my-auto">
+							<div class="d-flex">
+								<h4 class="content-title mb-0 my-auto">Tracking</h4><span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Viajes</span>
+							</div>
+						</div>
+						
+					</div>
+					<!-- breadcrumb -->
+
+					<!-- row -->
+					<div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+						<div class="card">
+							<div class="card-body" >
+								<div class="main-content-label mg-b-5">
+									FILTROS GENERALES <a href="#" onclick="toggleCard('filtro1')"><i class="header-icon fe fe-align-left"></i></a>
+								</div>
+								<div id="filtro1">
+								<p class="mg-b-20">Seleccione las opciones por las que desea filtrar</p>
+								<form action="" method="POST">
+								{% csrf_token %}
+								<div class="row row-sm">
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Nro Manifiesto</span>
+											</div><input aria-describedby="basic-addon1" aria-label="" name="manifiesto" class="form-control" placeholder="" type="text">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Cliente</span>
+											</div>
+											<select class="form-control select2-no-search" name="destinatario">
+												<option label="Seleccionar" value="0">
+												</option>
+												{% for destinatario in destinatarios %}
+													<option value="{{destinatario.id}}">
+														{{destinatario.nombre}}
+													</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Unidad Minera</span>
+											</div><input aria-describedby="basic-addon1" aria-label="" name="unidad_minera" class="form-control" placeholder="" type="text">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">Estado</span>
+											</div>
+											<select class="form-control select2-no-search" name="estado">
+												<option label="Seleccionar" value="0">
+												</option>
+												{% for estado in estados %}
+													<option value="{{estado.id}}">
+														{{estado.descripcion}}
+													</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-4 mg-t-20 mg-lg-t-0">
+										<div>
+											<button type="submit" class="btn btn-primary">Filtrar</button>
+										</div>
+									</div><!-- col-4 -->
+								</div>
+								</form>
+								</div>
+							</div>
+						</div>
+						<!--
+						<div class="card">
+							<div class="card-body">
+								<div class="main-content-label mg-b-5">
+									FILTROS POR GUIAS <a href="#" onclick="toggleCard('filtro2')"><i class="header-icon fe fe-align-left"></i></a>
+								</div>
+								<div id="filtro2">
+									<form action="" method="POST">
+									{% csrf_token %}
+									<div class="row row-sm">
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Guia de Remitente</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_remitente" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Guia de Transportista</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_transportista" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 mg-t-20 mg-lg-t-0">
+										<div>
+											<button type="submit" class="btn btn-primary">Filtrar</button>
+										</div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-body">
+								<div class="main-content-label mg-b-5">
+									FILTROS POR FECHAS <a href="#" onclick="toggleCard('filtro3')"><i class="header-icon fe fe-align-left"></i></a>
+								</div>
+								<div id="filtro3">
+									<p class="mg-b-20">Rango de Guias</p>
+									<form action="" method="POST">
+									{% csrf_token %}
+									<div class="row row-sm">
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Fecha de Recepción</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_inicial" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Fecha de Inicio de Traslado</span>
+												</div><input aria-describedby="basic-addon1" aria-label="" name="guia_final" class="form-control" placeholder="" type="text">
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 mg-t-20 mg-lg-t-0">
+										<div>
+											<button type="submit" class="btn btn-primary">Filtrar</button>
+										</div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						-->
+					</div>
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="card mg-b-20">
+								<div class="card-header pb-0">
+									<div class="d-flex justify-content-between">
+										<h4 class="card-title mg-b-0">Resultados</h4>
+										<i class="mdi mdi-dots-horizontal text-gray"></i>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered mg-b-0 text-md-nowrap">
+											<thead>
+												<tr>
+													<th>Guia Remisión</th>
+													<th>Delivery</th>
+													<th>Sales Order</th>
+													<th>Orden de Compra</th>
+													<th>Cliente</th>
+													<th>Unidad Minera</th>
+													<th>Punto Origen</th>
+													<th>Punto Destino</th>
+													<th>Peso Total (TM)</th>
+													<th>Nro Bultos</th>
+													<th>Fecha Recepción</th>
+													<th>Fecha Inicio Traslado Real</th>
+													<th>Fecha entrega final programada</th>
+													<th>Fecha entrega final real</th>
+													<th>Estado de Entrega</th>
+													<th>Nro Guia Transporista</th>
+													<th>Imagen</th>
+													<th>Nro Manifiesto</th>
+													<th>Comentarios</th>
+												</tr>
+											</thead>
+											<tbody>
+												{%for tramo in tramos %}
+												<tr>
+													<td>{{tramo.tracking.guia_remision_serie}}-{{tramo.tracking.guia_remision_nro}}</td>
+													<td>{{tramo.tracking.delivery}}</td>
+													<td>{{tramo.tracking.sales_order}}</td>
+													<td>{{tramo.tracking.orden_compra}}</td>
+													<td>{{tramo.tracking.destinatario.nombre}}</td>
+													<td>{{tramo.tracking.unidad_minera}}</td>
+													<td>{{tramo.tracking.punto_origen}}</td>
+													<td>{{tramo.tracking.punto_destino}}</td>
+													<td>{{tramo.tracking.peso_total}} KG</td>
+													<td>{{tramo.tracking.nro_bultos}}</td>
+													<td>{{tramo.tracking.fecha_recepcion}}</td>
+													<td>{{tramo.tracking.fecha_inicio_traslado}}</td>
+													<td>{{tramo.tracking.fecha_entrega_programada}}</td>
+													<td>{{tramo.tracking.fecha_entrega_real}}</td>
+													<td>{{tramo.tracking.estado.descripcion}}</td>
+													<td>{{tramo.tracking.guia_transportista_serie}}-{{tramo.tracking.guia_transportista_nro}}</td>
+													<td>
+													</td>
+													<td>{{tramo.curso}}</td>
+													<td>{{tramo.tracking.comentarios}}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endblock body %}
+					
+		{% block scripts %}
+		<script src="{%static '' %}assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
+		<script>
+			var card1 = document.getElementById('filtro1');
+			var card2 = document.getElementById('filtro2');
+			var card3 = document.getElementById('filtro3');
+			card1.style.display = 'none';
+			card2.style.display = 'none';
+			card3.style.display = 'none';
+
+			$( function() {
+			  $( "#datepicker" ).datepicker();
+			} );
+		</script>
+		<script>
+			function toggleCard(cardId) {
+				var card = document.getElementById(cardId);
+				if (card.style.display === 'none' || card.style.display === '') {
+					card.style.display = 'block';
+				} else {
+					card.style.display = 'none';
+				}
+			}
+
+		</script>
+		{% endblock scripts %}
